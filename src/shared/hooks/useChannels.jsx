@@ -6,7 +6,7 @@ export const useChannels = () => {
  
     const [channels, setChannels] = useState(null)
  
-    const getChannels = async (isLoged = false) => {
+    const getChannels = async (isLogged = false) => {
  
         const channelsData = await getChannelRequest()
        
@@ -16,7 +16,7 @@ export const useChannels = () => {
             )
         }
  
-        if(!isLoged){
+        if(!isLogged){
             return setChannels({
                 channels: channelsData.data.channels
             });
@@ -33,7 +33,7 @@ export const useChannels = () => {
         setChannels ({
             channels : channelsData.data.channels, 
             followedChannels: channelsData.data.channels.filter( channel=>
-                followedChannelsData.data.followedChanels.includes(channel.id)
+                followedChannelsData.data.followedChannels.includes(channel.id)
             )
         });
     }
