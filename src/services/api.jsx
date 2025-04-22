@@ -44,34 +44,93 @@ export const register = async(data) => {
     }
 }
 
-export const getChannels =async () => {
+export const getChannels = async () => {
     try {
-        return await apiClient.get ('/channels')
-    }catch (e){
+        return await apiClient.get('/channels')
+    } catch (e) {
         return {
-            error: true, 
+            error: true,
             e
         }
     }
 }
 
-export const getChannelSettings = async ()=>{
+export const getChannelSettings = async () => {
     try {
         return await apiClient.get('/settings/channel')
-    } catch (error) {
-        checkReponseStatus(e)
+    } catch (e) {
         return {
-            error: true, 
+            error: true,
             e
         }
     }
 }
 
-const checkResponseStatus = (e) =>{
-    const responseStatus = e?.response.status
-
-    if (responseStatus){
-        (responseStatus === 401 || responseStatus === 403 ) && logout()
+export const changePassword = async (data) => {
+    try {
+        return await apiClient.patch('/settings/password', data)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
     }
 }
 
+export const updateChannelSettings = async (data) => {
+    try {
+        return await apiClient.put('/settings/channel', data)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const getFollowedChannels = async () => {
+    try {
+        return await apiClient.get('/channels/followed')
+    } catch (error) {
+        checkResponseStatus(e)
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const getChannelsDetails = async (channelId) => {
+    try {
+        return await apiClient.get(`/channels/${channelId}`)
+    } catch (e) {
+        return{
+            error: true, 
+            e
+        }
+       
+    }
+    
+}
+
+export const followChannel = async (channelId) => {
+    try {
+        return await apiClient.post(`/channels/follow`, {channelId})
+        
+    } catch (e) {
+        return{
+            error: true, 
+            e
+        }
+        
+    }
+    
+}
+
+const checkResponseStatus = (e) => {
+    const responseStatus = e?.response.status
+
+    if(responseStatus){
+        (responseStatus === 401 || responseStatus === 403) && logout()
+    }
+}
