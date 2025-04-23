@@ -100,7 +100,7 @@ export const getFollowedChannels = async () => {
     }
 }
 
-export const getChannelsDetails = async (channelId) => {
+export const getChannelDetails = async (channelId) => {
     try {
         return await apiClient.get(`/channels/${channelId}`)
     } catch (e) {
